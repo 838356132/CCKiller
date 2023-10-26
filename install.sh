@@ -1,10 +1,4 @@
 #!/bin/sh
-###################################################################
-#  CCKiller version 1.0.8 Author: Jager <ge@zhang.ge>          #
-#  For more information please visit https://zhang.ge/5066.html#
-#-----------------------------------------------------------------#
-#  Copyright ©2015-2019 zhang.ge. All rights reserved.              #
-###################################################################
 conf_env()
 {
     export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
@@ -34,13 +28,9 @@ check_env()
 header()
 {
 printf "
-###################################################################
-#  $DKName version $DKVer Author: Jager <ge@zhang.ge>               #
-#  For more information please visit https://zhang.ge/5066.html#
-#-----------------------------------------------------------------#
-#  Copyright @2015-2019 zhang.ge. All rights reserved.              #
-###################################################################
-
+--------------------------------------------------
+        MXCCkiller
+--------------------------------------------------
 "
 }
 
@@ -51,10 +41,10 @@ showhelp()
 	echo 'Usage: cckiller [OPTIONS]'
 	echo
 	echo 'OPTIONS:'
+	echo "-i | --install : install $DKName version $DKVer to This System"
 	echo "-h | --help : Show help of $DKName"
 	echo "-u | --update : update Check for $DKName"
 	echo "-c | --config : Edit The configure of $DKName again"
-	echo "-i | --install : install $DKName version $DKVer to This System"
 	echo "-U | --uninstall : Uninstall cckiller from This System"
 	echo
 }
@@ -83,7 +73,7 @@ Check_U()
 Update()
 {
     conf_env
-    curl -ko $Base_Dir/log/version.txt --connect-timeout 300 --retry 5 --retry-delay 3 https://zhang.ge/wp-content/uploads/files/cckiller/version.txt
+    curl -ko $Base_Dir/log/version.txt --connect-timeout 300 --retry 5 --retry-delay 3 https://zhangge.net/wp-content/uploads/files/cckiller/version.txt
     CONF_FILE=$(awk -F":" '/configure/ {print $2}' $Base_Dir/log/version.txt)
     
     FINAL_VER=$(awk -F":" '/version/ {print $2}' $Base_Dir/log/version.txt)
@@ -268,10 +258,10 @@ install()
     echo; echo "Checking the operating environment..."
     check_env >/dev/null 2>&1
     echo; echo "Downloading source files..."
-    curl -ko $Base_Dir/cckiller --connect-timeout 300 --retry 5 --retry-delay 3 https://zhang.ge/wp-content/uploads/files/cckiller/cckiller?ver=${FINAL_VER:-$DKVer}
+    curl -ko $Base_Dir/cckiller --connect-timeout 300 --retry 5 --retry-delay 3 https://raw.githubusercontent.com/838356132/CCKiller/master/install.sh
     
     test -d /etc/init.d || mkdir -p /etc/init.d
-    curl -ko /etc/init.d/cckiller --connect-timeout 300 --retry 5 --retry-delay 3 https://zhang.ge/wp-content/uploads/files/cckiller/cckiller_servicefile?ver${FINAL_VER:-$DKVer}
+    curl -ko /etc/init.d/cckiller --connect-timeout 300 --retry 5 --retry-delay 3 https://raw.githubusercontent.com/838356132/CCKiller/master/install.sh
     chmod 0755 $Base_Dir/cckiller
     
     chmod 0755 /etc/init.d/cckiller
